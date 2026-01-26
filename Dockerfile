@@ -7,4 +7,6 @@ RUN apt-get update && apt-get install -y libpq-dev \
 WORKDIR /var/www/html
 COPY . .
 
-CMD php -S 0.0.0.0:$PORT -t public
+RUN chmod +x scripts/start.sh
+
+CMD ["scripts/start.sh"]
