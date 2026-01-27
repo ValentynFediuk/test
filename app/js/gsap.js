@@ -13,33 +13,27 @@ window.addEventListener('load', () => {
 });
 
 const title = document.getElementById('dashboard-title');
-const text = title.textContent;
-title.textContent = '';
-// wrap each character in span
-text.split('').forEach(char => {
-    const span = document.createElement('span');
-    span.textContent = char;
-    span.style.display = 'inline-block';
-    title.appendChild(span);
-});
+if (title) {
+    const text = title.textContent;
+    title.textContent = '';
 
-window.addEventListener('load', () => {
-    const letters = document.querySelectorAll("#dashboard-title span");
-
-    // нескінченна хвиля
-    gsap.to(letters, {
-        y: "-=10",              // рух вгору
-        rotation: 10,            // легке обертання
-        duration: 0.6,
-        ease: "sine.inOut",
-        stagger: {
-            each: 0.05,
-            yoyo: true,
-            repeat: -1
-        }
+    text.split('').forEach(char => {
+        const span = document.createElement('span');
+        span.textContent = char;
+        span.style.display = 'inline-block';
+        title.appendChild(span);
     });
 
-    // додатково: нескінченне світіння кольору
+    const letters = title.querySelectorAll('span');
+
+    gsap.to(letters, {
+        y: "-=10",
+        rotation: 10,
+        duration: 0.6,
+        ease: "sine.inOut",
+        stagger: { each: 0.05, yoyo: true, repeat: -1 }
+    });
+
     gsap.to(letters, {
         color: "#ffd700",
         textShadow: "0 0 10px #ffd700, 0 0 20px #ff8c00",
@@ -48,7 +42,8 @@ window.addEventListener('load', () => {
         yoyo: true,
         stagger: 0.05
     });
-});
+}
+
 
 window.addEventListener('load', () => {
     const brand = document.getElementById("brand-logo");
