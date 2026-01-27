@@ -41,13 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php
 include __DIR__ . '/includes/header.php';
 ?>
-    <h1 class="text-center mb-4">Registration</h1>
 
-    <div class="container">
-        <div class="row justify-content-center">
+    <div class="container min-vh-100-hedader-height">
+        <div class="row justify-content-center align-items-center min-vh-100-hedader-height">
             <div class="col-md-6">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm bg-dark text-white">
                     <div class="card-body">
+                        <h2 class="card-title text-center mb-4">Registration</h2>
                         <?php if (!empty($error)): ?>
                             <div class="alert alert-danger text-center">
                                 <?= htmlspecialchars($error) ?>
@@ -79,7 +79,7 @@ include __DIR__ . '/includes/header.php';
                                 >
                             </div>
 
-                            <button type="submit" class="btn btn-success w-100">Register</button>
+                            <button type="submit" class="btn btn-outline-light w-100">Register</button>
                         </form>
                     </div>
                 </div>

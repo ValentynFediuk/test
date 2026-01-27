@@ -1,5 +1,4 @@
 <?php
-
 require 'db.php';
 global $pdo;
 
@@ -54,81 +53,102 @@ $sql .= " ORDER BY created_at DESC";
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $posts = $stmt->fetchAll();
-
 ?>
+
 <?php include __DIR__ . '/includes/header.php'; ?>
 
-    <h1 class="text-center mb-4">Create Your Note</h1>
+<body class="bg-light">
 
-    <div class="container mb-5">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
+<div class="container py-5">
 
-                <!-- CREATE NOTE FORM -->
-                <div class="card shadow-sm mb-4">
-                    <div class="card-body">
-                        <form method="POST">
-                            <div class="mb-3">
-                                <label for="title" class="form-label">Title</label>
-                                <input
-                                        name="title"
-                                        type="text"
-                                        class="form-control"
-                                        id="title"
-                                        placeholder="Title"
-                                        required
-                                >
-                            </div>
+    <h1 id="dashboard-title" class="text-center mb-5 display-6 fw-bold">Your-Notes-Dashboard</h1>
 
-                            <div class="mb-3">
-                                <label for="content" class="form-label">Content</label>
-                                <textarea
-                                        name="content"
-                                        class="form-control"
-                                        id="content"
-                                        rows="5"
-                                        placeholder="Content"
-                                        required
-                                ></textarea>
-                            </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
 
-                            <button type="submit" class="btn btn-primary w-100">Create</button>
-                        </form>
-                    </div>
+            <!-- CREATE NOTE FORM -->
+            <div class="card shadow-sm border-0 mb-5 bg-dark">
+                <div class="card-header bg-black text-white fw-semibold border border-light">
+                    ✍️ Create a New Note
                 </div>
+                <div class="card-body bg-black text-white border border-light">
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label for="title" class="form-label fw-semibold">Title</label>
+                            <input
+                                    name="title"
+                                    type="text"
+                                    class="form-control form-control-lg bg-dark text-white"
+                                    id="title"
+                                    placeholder="Title"
+                                    required
+                            >
+                        </div>
 
-                <!-- FILTER FORM -->
-                <form method="GET" class="d-flex mb-4 gap-2 align-items-center">
-                    <select name="period" class="form-select w-auto">
-                        <option value="">All time</option>
-                        <option value="today" <?= ($_GET['period'] ?? '') === 'today' ? 'selected' : '' ?>>Today</option>
-                        <option value="week" <?= ($_GET['period'] ?? '') === 'week' ? 'selected' : '' ?>>Last 7 days</option>
-                        <option value="month" <?= ($_GET['period'] ?? '') === 'month' ? 'selected' : '' ?>>Last 30 days</option>
-                    </select>
-                    <button type="submit" class="btn btn-secondary">Filter</button>
-                </form>
+                        <div class="mb-3">
+                            <label for="content" class="form-label fw-semibold">Content</label>
+                            <textarea
+                                    name="content"
+                                    class="form-control bg-dark text-white"
+                                    id="content"
+                                    rows="5"
+                                    placeholder="Write your note here..."
+                                    required
+                            ></textarea>
+                        </div>
 
-                <!-- POSTS LIST -->
-                <h2 class="mb-3">Posts List</h2>
-                <?php foreach ($posts as $post): ?>
-                    <div class="card mb-3 shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= htmlspecialchars($post['title']) ?></h5>
-                            <h6 class="card-subtitle mb-2 text-muted">
-                                Date created: <?= date('d.m.Y H:i', strtotime($post['created_at'])) ?>
-                            </h6>
-                            <p class="card-text"><?= nl2br(htmlspecialchars($post['content'])) ?></p>
-                            <div class="d-flex gap-2">
-                                <a href="edit.php?id=<?= $post['id'] ?>" class="btn btn-sm btn-outline-primary">✏️ Edit</a>
-                                <a href="delete.php?id=<?= $post['id'] ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete нахуй?')">🗑 Delete</a>
-                            </div>
+                        <button type="submit" class="btn btn-outline-light w-100 fw-semibold">
+                            <i class="fa-solid fa-plus me-2"></i>Create
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- FILTER FORM -->
+            <form method="GET" class="d-flex mb-4 gap-2 align-items-center">
+                <select name="period" class="form-select w-auto bg-dark text-white">
+                    <option value="">All time</option>
+                    <option value="today" <?= ($_GET['period'] ?? '') === 'today' ? 'selected' : '' ?>>Today</option>
+                    <option value="week" <?= ($_GET['period'] ?? '') === 'week' ? 'selected' : '' ?>>Last 7 days</option>
+                    <option value="month" <?= ($_GET['period'] ?? '') === 'month' ? 'selected' : '' ?>>Last 30 days</option>
+                </select>
+                <button type="submit" class="btn btn-outline-secondary fw-semibold">
+                    <i class="fa-solid fa-filter me-1"></i> Filter
+                </button>
+            </form>
+
+            <!-- POSTS LIST -->
+            <h2 class="mb-3 fw-semibold">🗂 Your Notes</h2>
+
+            <?php if (!$posts): ?>
+                <div class="alert alert-info text-center bg-dark">
+                    No notes found for selected period.
+                </div>
+            <?php endif; ?>
+
+            <?php foreach ($posts as $post): ?>
+                <div class="card mb-3 shadow-sm border-0">
+                    <div class="card-body bg-dark text-white border border-light rounded">
+                        <h5 class="card-title fw-semibold"><?= htmlspecialchars($post['title']) ?></h5>
+                        <h6 class="card-subtitle mb-2 text-light">
+                            Created: <?= date('d.m.Y H:i', strtotime($post['created_at'])) ?>
+                        </h6>
+                        <p class="card-text"><?= nl2br(htmlspecialchars($post['content'])) ?></p>
+                        <div class="d-flex gap-2">
+                            <a href="edit.php?id=<?= $post['id'] ?>" class="btn btn-sm btn-outline-primary">
+                                <i class="fa-solid fa-pen"></i> Edit
+                            </a>
+                            <a href="delete.php?id=<?= $post['id'] ?>" class="btn btn-sm btn-outline-danger"
+                               onclick="return confirm('Delete нахуй?')">
+                                <i class="fa-solid fa-trash"></i> Delete
+                            </a>
                         </div>
                     </div>
-                <?php endforeach; ?>
+                </div>
+            <?php endforeach; ?>
 
-            </div>
         </div>
     </div>
-
+</div>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>

@@ -21,10 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <?php include __DIR__ . '/includes/header.php'; ?>
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
+<div class="container min-vh-100-hedader-height">
+    <div class="row justify-content-center align-items-center min-vh-100-hedader-height">
         <div class="col-md-6">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm bg-dark text-white">
                 <div class="card-body">
                     <h2 class="card-title text-center mb-4">Login</h2>
 
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <input name="password" type="password" class="form-control" id="password" placeholder="Password" required>
                         </div>
 
-                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                        <button type="submit" class="btn btn-outline-light w-100">Login</button>
                     </form>
                 </div>
             </div>

@@ -30,12 +30,13 @@ $post = $post->fetch();
 
 <?php include __DIR__ . '/includes/header.php'; ?>
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow-sm">
+<div class="container min-vh-100-hedader-height">
+    <div class="row justify-content-center align-items-center min-vh-100-hedader-height">
+        <div class="col-md-6">
+            <div class="card shadow-sm bg-dark text-white">
                 <div class="card-body">
-                    <h2 class="card-title mb-4">Edit Your Note</h2>
+                    <h2 class="card-title text-center mb-4">Edit Your Note</h2>
+
                     <form method="POST">
                         <div class="mb-3">
                             <label for="title" class="form-label">Title</label>
@@ -43,7 +44,7 @@ $post = $post->fetch();
                                     type="text"
                                     name="title"
                                     id="title"
-                                    class="form-control"
+                                    class="form-control bg-dark text-white border-light"
                                     value="<?= htmlspecialchars($post['title']) ?>"
                                     required
                             >
@@ -54,13 +55,13 @@ $post = $post->fetch();
                             <textarea
                                     name="content"
                                     id="content"
-                                    class="form-control"
+                                    class="form-control bg-dark text-white border-light"
                                     rows="6"
                                     required
                             ><?= htmlspecialchars($post['content']) ?></textarea>
                         </div>
 
-                        <button type="submit" class="btn btn-success w-100">Save</button>
+                        <button type="submit" class="btn btn-outline-light w-100">Save</button>
                     </form>
                 </div>
             </div>

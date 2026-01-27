@@ -1,0 +1,15 @@
+:root {
+    --black: #000;
+    --white: #fff;
+    --header-height: 56px;
+}
+
+body {
+    background: var(--black);
+    color: var(--white);
+}
+
+.min-vh-100-hedader-height {
+    min-height: calc(100vh - var(--header-height));
+}
+
