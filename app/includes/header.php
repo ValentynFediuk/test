@@ -29,6 +29,7 @@ $page = basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
                 <?php if (!in_array($page, ['login.php', 'register.php'])): ?>
                     <a href="logout.php" class="btn btn-outline-light btn-sm">
                         Logout
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
                     </a>
                 <?php endif; ?>
 
